@@ -25,7 +25,7 @@
         <div class="panel-heading">
             <div class="clearfix">
                 <h3 class="pull-left finding-title">
-                    {{ finding.title }}
+                    {{ finding.title | markdown_render }}
                     {% include "dojo/snippets/tags.html" with tags=finding.tags.all %}
                     {% if finding.last_reviewed %}
                         <small>Last Reviewed {{ finding.last_reviewed | naturalday }}

@@ -274,7 +274,7 @@
                 {% for finding in findings %}
                     <tr>
                         <td> 
-                            <a href="{% url 'view_finding' finding.id %}">{{ finding.title }}</a>
+                            <a href="{% url 'view_finding' finding.id %}">{{ finding.title|markdown_render }}</a>
                         </td>
                         <td class="text-center">
                             <span class="label severity severity-{{ finding.severity }}">

@@ -2,6 +2,8 @@
 {% load navigation_tags %}
 {% load authorization_tags %}
 {% block content %}
+{% load display_tags %}
+
     {{ block.super }}
     <div class="row">
         <div class="col-md-12">
@@ -81,27 +83,28 @@
                                     {% if add_from_template %}
                                         <a href="{% url 'add_temp_finding' tid finding.id %}"
                                            class="template-popover" data-placement="auto bottom" data-toggle="popover"
-                                           data-trigger="hover" title="{{ finding.title|truncatechars_html:100 }}"
+{% load display_tags %}
+                                           data-trigger="hover" title="{{ finding.title|markdown_render|truncatechars_html:100 }}"
                                            data-content="{{ finding.description|truncatechars_html:500 }}">
-                                            {{ finding.title }}
+                                            {{ finding.title|markdown_render }}
                                             {% include "dojo/snippets/tags.html" with tags=finding.tags.all %}
                                         </a>
                                     {% elif apply_template %}
                                         <a href="{% url 'choose_finding_template_options' finding.id fid %}"
                                            class="template-popover" data-placement="auto bottom" data-toggle="popover"
-                                           data-trigger="hover" title="{{ finding.title|truncatechars_html:100 }}"
+                                           data-trigger="hover" title="{{ finding.title|markdown_render|truncatechars_html:100 }}"
                                            data-content="{{ finding.description|truncatechars_html:500 }}">
-                                            {{ finding.title }}
+                                            {{ finding.title|markdown_render }}
                                             {% include "dojo/snippets/tags.html" with tags=finding.tags.all %}
                                         </a>
                                     {% else %}
                                         {% if "dojo.change_finding_template"|has_configuration_permission:request %}
-                                        <a title="{{ finding.title }}" href="{% url 'edit_template' finding.id %}">
-                                            {{ finding.title }}
+                                        <a title="{{ finding.title|markdown_render|truncatechars_html:100 }}" href="{% url 'edit_template' finding.id %}">
+                                            {{ finding.title|markdown_render }}
                                             {% include "dojo/snippets/tags.html" with tags=finding.tags.all %}
                                         </a>
                                         {% else %}
-                                            {{ finding.title }}
+                                            {{ finding.title|markdown_render }}
                                         {% endif %}
                                     {% endif %}
                                 </td>

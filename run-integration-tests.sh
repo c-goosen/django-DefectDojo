@@ -51,8 +51,8 @@ echo "Building images..."
 ./docker/setEnv.sh integration_tests
 docker compose build
 echo "Setting up DefectDojo with Postgres and Redis..."
-DD_INTEGRATION_TEST_FILENAME="$TEST_CASE" docker compose -d postgres nginx celerybeat celeryworker mailhog uwsgi redis
+DD_INTEGRATION_TEST_FILENAME="$TEST_CASE" docker compose up --exit-code-from integration-tests -d postgres nginx celerybeat celeryworker mailhog uwsgi redis
 echo "Initializing DefectDojo..."
-DD_INTEGRATION_TEST_FILENAME="$TEST_CASE" docker compose --exit-code-from initializer initializer
+DD_INTEGRATION_TEST_FILENAME="$TEST_CASE" docker compose run --rm initializer
 echo "Running the integration tests..."
-DD_INTEGRATION_TEST_FILENAME="$TEST_CASE" docker compose --exit-code-from integration-tests integration-tests
+DD_INTEGRATION_TEST_FILENAME="$TEST_CASE" docker compose run --rm integration-tests

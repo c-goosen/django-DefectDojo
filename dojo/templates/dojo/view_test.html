@@ -421,7 +421,7 @@
                                 <td>
                                     <i class="has-popover" data-trigger="hover" data-placement="right" data-html="true" data-content="
                                         {% for finding in group.findings.all %}
-                                            {{ finding.title }}<br>
+                                            {{ finding.title | markdown_render}}<br>
                                         {% endfor %}
                                         " data-container="body" data-original-title="Findings" title="">
                                         <a href="{% url 'view_test' test.id %}?finding_group={{ group.id }}">{{ group.findings.all|length }}</a>
@@ -1138,7 +1138,7 @@
                                     </td>
                                     <td>
                                         {% if finding.title %}
-                                            <a title="{{ finding.title }}" href="{% url 'view_finding' finding.id %}">{{ finding.title|truncatechars_html:60 }}</a>
+                                            <a title="{{ finding.title | markdown_render }}" href="{% url 'view_finding' finding.id %}">{{ finding.title|markdown_render|truncatechars_html:60 }}</a>
                                         {% else %}
                                             <a title="{{ finding.id }}" href="{% url 'view_finding' finding.id %}">{{ finding.id }}</a>
                                         {% endif %}
@@ -1356,9 +1356,9 @@
                     <tr>
                         <td name="stub_finding_name">
                             {% if test|has_object_permission:"Finding_Add" %}
-                                <a href="{% url 'promote_to_finding' finding.id %}">{{ finding.title }}</a>
+                                <a href="{% url 'promote_to_finding' finding.id %}">{{ finding.title | markdown_render }}</a>
                             {% else %}
-                                {{ finding.title }}
+                                {{ finding.title | markdown_render }}
                             {% endif %}
                         </td>
                         <td>

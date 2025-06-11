@@ -215,7 +215,7 @@
                         {% for risk in test.engagement.risk_acceptance.all %}
                             {% for finding in risk.accepted_findings.all %}
                                 <tr>
-                                    <td style="padding: 4px;vertical-align: top;border: 1px solid #DDDDDD;">{{ finding.title }}</td>
+                                    <td style="padding: 4px;vertical-align: top;border: 1px solid #DDDDDD;">{{ finding.title|markdown_render }}</td>
                                     <td style="padding: 4px;vertical-align: top;border: 1px solid #DDDDDD;">{{ finding.date }}</td>
                                     <td style="padding: 4px;vertical-align: top;border: 1px solid #DDDDDD;">{{ finding.severity }}</td>
                                     <td style="padding: 4px;vertical-align: top;border: 1px solid #DDDDDD;">
@@ -243,7 +243,7 @@
                         <div class="panel-heading finding-title">
                             <div class="clearfix">
                                 <h5>
-                                    Finding {{ forloop.counter }}: {{ finding.title }}
+                                    Finding {{ forloop.counter }}: {{ finding.title|markdown_render }}
                                     {% if finding.tags %}
                                         <sup>
                                             {% for tag in finding.tags.all %}
